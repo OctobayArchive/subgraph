@@ -10,6 +10,7 @@ dataSources:
     source:
       address: '0xd339e6bB7a4F662C5c5f6aD9a44397Dc56b3F764'
       abi: OctoBay
+      startBlock: 23088385
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
