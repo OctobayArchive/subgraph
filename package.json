@@ -1,8 +1,8 @@
 {
-  "name": "octobay",
+  "name": "octobay-graph",
   "version": "0.1.0",
   "scripts": {
-    "build-contract": "solc contracts/Gravity.sol --abi -o abis --overwrite && solc contracts/Gravity.sol --bin -o bin --overwrite",
+    "build-contract": "solc contracts/OctoBay.sol --abi -o abis --overwrite && solc contracts/OctoBay.sol --bin -o bin --overwrite",
     "create": "graph create octobay/octobay --node https://api.thegraph.com/deploy/",
     "create-local": "graph create octobay/octobay --node http://127.0.0.1:8020",
     "codegen": "graph codegen",

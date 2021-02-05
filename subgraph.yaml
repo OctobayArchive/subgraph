@@ -1,27 +1,25 @@
 specVersion: 0.0.2
-description: Gravatar for Ethereum
-repository: https://github.com/graphprotocol/example-subgraph
+description: OctoBay
+repository: https://github.com/octobay/graph
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Gravity
-    network: mainnet
+    name: OctoBay
+    network: kovan
     source:
-      address: '0x2E645469f354BB4F5c8a05B3b30A929361cf77eC'
-      abi: Gravity
+      address: '0xd339e6bB7a4F662C5c5f6aD9a44397Dc56b3F764'
+      abi: OctoBay
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - Gravatar
+        - Issue
       abis:
-        - name: Gravity
-          file: ./abis/Gravity.json
+        - name: OctoBay
+          file: ./abis/OctoBay.json
       eventHandlers:
-        - event: NewGravatar(uint256,address,string,string)
-          handler: handleNewGravatar
-        - event: UpdatedGravatar(uint256,address,string,string)
-          handler: handleUpdatedGravatar
+        - event: IssueDepositEvent(address,uint256,string)
+          handler: handleNewIssueDeposit
       file: ./src/mapping.ts
