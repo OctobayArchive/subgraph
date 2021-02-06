@@ -77,7 +77,7 @@ export class IssueDepositEvent__Params {
     this._event = event;
   }
 
-  get account(): Address {
+  get from(): Address {
     return this._event.parameters[0].value.toAddress();
   }
 
@@ -87,6 +87,50 @@ export class IssueDepositEvent__Params {
 
   get issueId(): string {
     return this._event.parameters[2].value.toString();
+  }
+
+  get depositId(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+}
+
+export class OracleAdded extends ethereum.Event {
+  get params(): OracleAdded__Params {
+    return new OracleAdded__Params(this);
+  }
+}
+
+export class OracleAdded__Params {
+  _event: OracleAdded;
+
+  constructor(event: OracleAdded) {
+    this._event = event;
+  }
+
+  get _oracle(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get name(): string {
+    return this._event.parameters[1].value.toString();
+  }
+}
+
+export class OracleRemoved extends ethereum.Event {
+  get params(): OracleRemoved__Params {
+    return new OracleRemoved__Params(this);
+  }
+}
+
+export class OracleRemoved__Params {
+  _event: OracleRemoved;
+
+  constructor(event: OracleRemoved) {
+    this._event = event;
+  }
+
+  get _oracle(): Address {
+    return this._event.parameters[0].value.toAddress();
   }
 }
 
@@ -169,7 +213,7 @@ export class UserDepositEvent__Params {
     this._event = event;
   }
 
-  get account(): Address {
+  get from(): Address {
     return this._event.parameters[0].value.toAddress();
   }
 
@@ -195,7 +239,7 @@ export class UserSendEvent__Params {
     this._event = event;
   }
 
-  get account(): Address {
+  get from(): Address {
     return this._event.parameters[0].value.toAddress();
   }
 
@@ -311,51 +355,26 @@ export class OctoBay__usersResult {
   }
 }
 
+export class OctoBay__getOracleJobResult {
+  value0: Bytes;
+  value1: BigInt;
+
+  constructor(value0: Bytes, value1: BigInt) {
+    this.value0 = value0;
+    this.value1 = value1;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromFixedBytes(this.value0));
+    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    return map;
+  }
+}
+
 export class OctoBay extends ethereum.SmartContract {
   static bind(address: Address): OctoBay {
     return new OctoBay("OctoBay", address);
-  }
-
-  claimJobFees(param0: Address): BigInt {
-    let result = super.call("claimJobFees", "claimJobFees(address):(uint256)", [
-      ethereum.Value.fromAddress(param0)
-    ]);
-
-    return result[0].toBigInt();
-  }
-
-  try_claimJobFees(param0: Address): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "claimJobFees",
-      "claimJobFees(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  claimJobIds(param0: Address): Bytes {
-    let result = super.call("claimJobIds", "claimJobIds(address):(bytes32)", [
-      ethereum.Value.fromAddress(param0)
-    ]);
-
-    return result[0].toBytes();
-  }
-
-  try_claimJobIds(param0: Address): ethereum.CallResult<Bytes> {
-    let result = super.tryCall(
-      "claimJobIds",
-      "claimJobIds(address):(bytes32)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
   isTrustedForwarder(forwarder: Address): boolean {
@@ -585,39 +604,16 @@ export class OctoBay extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  oracleAddresses(param0: BigInt): Address {
-    let result = super.call(
-      "oracleAddresses",
-      "oracleAddresses(uint256):(address)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_oracleAddresses(param0: BigInt): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "oracleAddresses",
-      "oracleAddresses(uint256):(address)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  oracleNames(param0: Address): string {
-    let result = super.call("oracleNames", "oracleNames(address):(string)", [
+  oracles(param0: Address): string {
+    let result = super.call("oracles", "oracles(address):(string)", [
       ethereum.Value.fromAddress(param0)
     ]);
 
     return result[0].toString();
   }
 
-  try_oracleNames(param0: Address): ethereum.CallResult<string> {
-    let result = super.tryCall("oracleNames", "oracleNames(address):(string)", [
+  try_oracles(param0: Address): ethereum.CallResult<string> {
+    let result = super.tryCall("oracles", "oracles(address):(string)", [
       ethereum.Value.fromAddress(param0)
     ]);
     if (result.reverted) {
@@ -723,96 +719,27 @@ export class OctoBay extends ethereum.SmartContract {
     );
   }
 
-  registerJobFees(param0: Address): BigInt {
+  registeredOracles(param0: BigInt): Address {
     let result = super.call(
-      "registerJobFees",
-      "registerJobFees(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
+      "registeredOracles",
+      "registeredOracles(uint256):(address)",
+      [ethereum.Value.fromUnsignedBigInt(param0)]
     );
 
-    return result[0].toBigInt();
+    return result[0].toAddress();
   }
 
-  try_registerJobFees(param0: Address): ethereum.CallResult<BigInt> {
+  try_registeredOracles(param0: BigInt): ethereum.CallResult<Address> {
     let result = super.tryCall(
-      "registerJobFees",
-      "registerJobFees(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
+      "registeredOracles",
+      "registeredOracles(uint256):(address)",
+      [ethereum.Value.fromUnsignedBigInt(param0)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  registerJobIds(param0: Address): Bytes {
-    let result = super.call(
-      "registerJobIds",
-      "registerJobIds(address):(bytes32)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-
-    return result[0].toBytes();
-  }
-
-  try_registerJobIds(param0: Address): ethereum.CallResult<Bytes> {
-    let result = super.tryCall(
-      "registerJobIds",
-      "registerJobIds(address):(bytes32)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
-  }
-
-  releaseJobFees(param0: Address): BigInt {
-    let result = super.call(
-      "releaseJobFees",
-      "releaseJobFees(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_releaseJobFees(param0: Address): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "releaseJobFees",
-      "releaseJobFees(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  releaseJobIds(param0: Address): Bytes {
-    let result = super.call(
-      "releaseJobIds",
-      "releaseJobIds(address):(bytes32)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-
-    return result[0].toBytes();
-  }
-
-  try_releaseJobIds(param0: Address): ethereum.CallResult<Bytes> {
-    let result = super.tryCall(
-      "releaseJobIds",
-      "releaseJobIds(address):(bytes32)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   releasedIssues(param0: Bytes): OctoBay__releasedIssuesResult {
@@ -917,98 +844,6 @@ export class OctoBay extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  twitterFollowersJobFees(param0: Address): BigInt {
-    let result = super.call(
-      "twitterFollowersJobFees",
-      "twitterFollowersJobFees(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_twitterFollowersJobFees(param0: Address): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "twitterFollowersJobFees",
-      "twitterFollowersJobFees(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  twitterFollowersJobIds(param0: Address): Bytes {
-    let result = super.call(
-      "twitterFollowersJobIds",
-      "twitterFollowersJobIds(address):(bytes32)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-
-    return result[0].toBytes();
-  }
-
-  try_twitterFollowersJobIds(param0: Address): ethereum.CallResult<Bytes> {
-    let result = super.tryCall(
-      "twitterFollowersJobIds",
-      "twitterFollowersJobIds(address):(bytes32)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
-  }
-
-  twitterPostJobFees(param0: Address): BigInt {
-    let result = super.call(
-      "twitterPostJobFees",
-      "twitterPostJobFees(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_twitterPostJobFees(param0: Address): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "twitterPostJobFees",
-      "twitterPostJobFees(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  twitterPostJobIds(param0: Address): Bytes {
-    let result = super.call(
-      "twitterPostJobIds",
-      "twitterPostJobIds(address):(bytes32)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-
-    return result[0].toBytes();
-  }
-
-  try_twitterPostJobIds(param0: Address): ethereum.CallResult<Bytes> {
-    let result = super.tryCall(
-      "twitterPostJobIds",
-      "twitterPostJobIds(address):(bytes32)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
   userClaimAmountByGithbUser(param0: string): BigInt {
@@ -1233,19 +1068,92 @@ export class OctoBay extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toString());
   }
 
-  getOracles(): Array<Address> {
-    let result = super.call("getOracles", "getOracles():(address[])", []);
+  getOracleName(_oracle: Address): string {
+    let result = super.call(
+      "getOracleName",
+      "getOracleName(address):(string)",
+      [ethereum.Value.fromAddress(_oracle)]
+    );
 
-    return result[0].toAddressArray();
+    return result[0].toString();
   }
 
-  try_getOracles(): ethereum.CallResult<Array<Address>> {
-    let result = super.tryCall("getOracles", "getOracles():(address[])", []);
+  try_getOracleName(_oracle: Address): ethereum.CallResult<string> {
+    let result = super.tryCall(
+      "getOracleName",
+      "getOracleName(address):(string)",
+      [ethereum.Value.fromAddress(_oracle)]
+    );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddressArray());
+    return ethereum.CallResult.fromValue(value[0].toString());
+  }
+
+  getOracleJob(_oracle: Address, _job: i32): OctoBay__getOracleJobResult {
+    let result = super.call(
+      "getOracleJob",
+      "getOracleJob(address,uint8):(bytes32,uint256)",
+      [
+        ethereum.Value.fromAddress(_oracle),
+        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_job))
+      ]
+    );
+
+    return new OctoBay__getOracleJobResult(
+      result[0].toBytes(),
+      result[1].toBigInt()
+    );
+  }
+
+  try_getOracleJob(
+    _oracle: Address,
+    _job: i32
+  ): ethereum.CallResult<OctoBay__getOracleJobResult> {
+    let result = super.tryCall(
+      "getOracleJob",
+      "getOracleJob(address,uint8):(bytes32,uint256)",
+      [
+        ethereum.Value.fromAddress(_oracle),
+        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(_job))
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new OctoBay__getOracleJobResult(value[0].toBytes(), value[1].toBigInt())
+    );
+  }
+
+  register(_oracle: Address, _githubUser: string): Bytes {
+    let result = super.call("register", "register(address,string):(bytes32)", [
+      ethereum.Value.fromAddress(_oracle),
+      ethereum.Value.fromString(_githubUser)
+    ]);
+
+    return result[0].toBytes();
+  }
+
+  try_register(
+    _oracle: Address,
+    _githubUser: string
+  ): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "register",
+      "register(address,string):(bytes32)",
+      [
+        ethereum.Value.fromAddress(_oracle),
+        ethereum.Value.fromString(_githubUser)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
   updateTwitterFollowersAndPost(_oracle: Address, _issueId: string): Bytes {
@@ -1391,6 +1299,21 @@ export class OctoBay extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getOracles(): Array<Address> {
+    let result = super.call("getOracles", "getOracles():(address[])", []);
+
+    return result[0].toAddressArray();
+  }
+
+  try_getOracles(): ethereum.CallResult<Array<Address>> {
+    let result = super.tryCall("getOracles", "getOracles():(address[])", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddressArray());
   }
 }
 
@@ -1582,20 +1505,20 @@ export class SetTwitterAccountIdCall__Outputs {
   }
 }
 
-export class SetOracleCall extends ethereum.Call {
-  get inputs(): SetOracleCall__Inputs {
-    return new SetOracleCall__Inputs(this);
+export class AddOracleCall extends ethereum.Call {
+  get inputs(): AddOracleCall__Inputs {
+    return new AddOracleCall__Inputs(this);
   }
 
-  get outputs(): SetOracleCall__Outputs {
-    return new SetOracleCall__Outputs(this);
+  get outputs(): AddOracleCall__Outputs {
+    return new AddOracleCall__Outputs(this);
   }
 }
 
-export class SetOracleCall__Inputs {
-  _call: SetOracleCall;
+export class AddOracleCall__Inputs {
+  _call: AddOracleCall;
 
-  constructor(call: SetOracleCall) {
+  constructor(call: AddOracleCall) {
     this._call = call;
   }
 
@@ -1603,58 +1526,36 @@ export class SetOracleCall__Inputs {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get name(): string {
+  get _name(): string {
     return this._call.inputValues[1].value.toString();
   }
+
+  get _jobNames(): Array<i32> {
+    return this._call.inputValues[2].value.toI32Array();
+  }
+
+  get _jobs(): Array<AddOracleCall_jobsStruct> {
+    return this._call.inputValues[3].value.toTupleArray<
+      AddOracleCall_jobsStruct
+    >();
+  }
 }
 
-export class SetOracleCall__Outputs {
-  _call: SetOracleCall;
+export class AddOracleCall__Outputs {
+  _call: AddOracleCall;
 
-  constructor(call: SetOracleCall) {
+  constructor(call: AddOracleCall) {
     this._call = call;
   }
 }
 
-export class SetOracleJobCall extends ethereum.Call {
-  get inputs(): SetOracleJobCall__Inputs {
-    return new SetOracleJobCall__Inputs(this);
+export class AddOracleCall_jobsStruct extends ethereum.Tuple {
+  get id(): Bytes {
+    return this[0].toBytes();
   }
 
-  get outputs(): SetOracleJobCall__Outputs {
-    return new SetOracleJobCall__Outputs(this);
-  }
-}
-
-export class SetOracleJobCall__Inputs {
-  _call: SetOracleJobCall;
-
-  constructor(call: SetOracleJobCall) {
-    this._call = call;
-  }
-
-  get _oracle(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get _jobType(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get _jobId(): Bytes {
-    return this._call.inputValues[2].value.toBytes();
-  }
-
-  get _jobFee(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
-  }
-}
-
-export class SetOracleJobCall__Outputs {
-  _call: SetOracleJobCall;
-
-  constructor(call: SetOracleJobCall) {
-    this._call = call;
+  get fee(): BigInt {
+    return this[1].toBigInt();
   }
 }
 
@@ -1684,6 +1585,122 @@ export class RemoveOracleCall__Outputs {
   _call: RemoveOracleCall;
 
   constructor(call: RemoveOracleCall) {
+    this._call = call;
+  }
+}
+
+export class ChangeOracleNameCall extends ethereum.Call {
+  get inputs(): ChangeOracleNameCall__Inputs {
+    return new ChangeOracleNameCall__Inputs(this);
+  }
+
+  get outputs(): ChangeOracleNameCall__Outputs {
+    return new ChangeOracleNameCall__Outputs(this);
+  }
+}
+
+export class ChangeOracleNameCall__Inputs {
+  _call: ChangeOracleNameCall;
+
+  constructor(call: ChangeOracleNameCall) {
+    this._call = call;
+  }
+
+  get _oracle(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _name(): string {
+    return this._call.inputValues[1].value.toString();
+  }
+}
+
+export class ChangeOracleNameCall__Outputs {
+  _call: ChangeOracleNameCall;
+
+  constructor(call: ChangeOracleNameCall) {
+    this._call = call;
+  }
+}
+
+export class AddOracleJobCall extends ethereum.Call {
+  get inputs(): AddOracleJobCall__Inputs {
+    return new AddOracleJobCall__Inputs(this);
+  }
+
+  get outputs(): AddOracleJobCall__Outputs {
+    return new AddOracleJobCall__Outputs(this);
+  }
+}
+
+export class AddOracleJobCall__Inputs {
+  _call: AddOracleJobCall;
+
+  constructor(call: AddOracleJobCall) {
+    this._call = call;
+  }
+
+  get _oracle(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _jobName(): i32 {
+    return this._call.inputValues[1].value.toI32();
+  }
+
+  get _job(): AddOracleJobCall_jobStruct {
+    return this._call.inputValues[2].value.toTuple() as AddOracleJobCall_jobStruct;
+  }
+}
+
+export class AddOracleJobCall__Outputs {
+  _call: AddOracleJobCall;
+
+  constructor(call: AddOracleJobCall) {
+    this._call = call;
+  }
+}
+
+export class AddOracleJobCall_jobStruct extends ethereum.Tuple {
+  get id(): Bytes {
+    return this[0].toBytes();
+  }
+
+  get fee(): BigInt {
+    return this[1].toBigInt();
+  }
+}
+
+export class RemoveOracleJobCall extends ethereum.Call {
+  get inputs(): RemoveOracleJobCall__Inputs {
+    return new RemoveOracleJobCall__Inputs(this);
+  }
+
+  get outputs(): RemoveOracleJobCall__Outputs {
+    return new RemoveOracleJobCall__Outputs(this);
+  }
+}
+
+export class RemoveOracleJobCall__Inputs {
+  _call: RemoveOracleJobCall;
+
+  constructor(call: RemoveOracleJobCall) {
+    this._call = call;
+  }
+
+  get _oracle(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _jobName(): i32 {
+    return this._call.inputValues[1].value.toI32();
+  }
+}
+
+export class RemoveOracleJobCall__Outputs {
+  _call: RemoveOracleJobCall;
+
+  constructor(call: RemoveOracleJobCall) {
     this._call = call;
   }
 }
@@ -1753,6 +1770,10 @@ export class RegisterCall__Outputs {
 
   constructor(call: RegisterCall) {
     this._call = call;
+  }
+
+  get requestId(): Bytes {
+    return this._call.outputValues[0].value.toBytes();
   }
 }
 

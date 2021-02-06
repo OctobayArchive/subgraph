@@ -21,6 +21,6 @@ dataSources:
         - name: OctoBay
           file: ./abis/OctoBay.json
       eventHandlers:
-        - event: IssueDepositEvent(address,uint256,string)
-          handler: handleNewIssueDeposit
+        - event: IssueDepositEvent(address,uint256,string,uint256)
+          handler: handleIssueDepositEvent
       file: ./src/mapping.ts

@@ -1,4 +1,11 @@
 type Issue @entity {
   id: ID!
-  depositSize: BigInt!
+  deposits: [IssueDeposit!]! @derivedFrom(field: "issue")
+}
+
+type IssueDeposit @entity {
+  id: ID!
+  from: Bytes!
+  amount: BigInt!
+  issue: Issue!
 }
