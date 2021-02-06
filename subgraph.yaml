@@ -8,7 +8,7 @@ dataSources:
     name: OctoBay
     network: kovan
     source:
-      address: '0xd339e6bB7a4F662C5c5f6aD9a44397Dc56b3F764'
+      address: '0xadcAf9530650357a45030f8506ED326F8231E703'
       abi: OctoBay
       startBlock: 23088385
     mapping:
