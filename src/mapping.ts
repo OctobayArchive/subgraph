@@ -7,7 +7,7 @@ export function handleIssueDepositEvent(event: IssueDepositEvent): void {
     issue = new Issue(event.params.issueId)
     issue.save()
   }
-  let deposit = new IssueDeposit(event.params.depositId)
+  let deposit = new IssueDeposit(event.params.depositId.toString())
   deposit.from = event.params.from
   deposit.amount = event.params.amount
   deposit.issue = event.params.issueId
