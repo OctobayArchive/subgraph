@@ -101,7 +101,7 @@
         {
           "indexed": false,
           "internalType": "address",
-          "name": "_oracle",
+          "name": "oracle",
           "type": "address"
         },
         {
@@ -120,7 +120,64 @@
         {
           "indexed": false,
           "internalType": "address",
-          "name": "_oracle",
+          "name": "oracle",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum OctoBay.jobName",
+          "name": "name",
+          "type": "uint8"
+        }
+      ],
+      "name": "OracleJobAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "oracle",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum OctoBay.jobName",
+          "name": "name",
+          "type": "uint8"
+        }
+      ],
+      "name": "OracleJobRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "oracle",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        }
+      ],
+      "name": "OracleNameChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "oracle",
           "type": "address"
         }
       ],

@@ -107,7 +107,73 @@ export class OracleAdded__Params {
     this._event = event;
   }
 
-  get _oracle(): Address {
+  get oracle(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get name(): string {
+    return this._event.parameters[1].value.toString();
+  }
+}
+
+export class OracleJobAdded extends ethereum.Event {
+  get params(): OracleJobAdded__Params {
+    return new OracleJobAdded__Params(this);
+  }
+}
+
+export class OracleJobAdded__Params {
+  _event: OracleJobAdded;
+
+  constructor(event: OracleJobAdded) {
+    this._event = event;
+  }
+
+  get oracle(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get name(): i32 {
+    return this._event.parameters[1].value.toI32();
+  }
+}
+
+export class OracleJobRemoved extends ethereum.Event {
+  get params(): OracleJobRemoved__Params {
+    return new OracleJobRemoved__Params(this);
+  }
+}
+
+export class OracleJobRemoved__Params {
+  _event: OracleJobRemoved;
+
+  constructor(event: OracleJobRemoved) {
+    this._event = event;
+  }
+
+  get oracle(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get name(): i32 {
+    return this._event.parameters[1].value.toI32();
+  }
+}
+
+export class OracleNameChanged extends ethereum.Event {
+  get params(): OracleNameChanged__Params {
+    return new OracleNameChanged__Params(this);
+  }
+}
+
+export class OracleNameChanged__Params {
+  _event: OracleNameChanged;
+
+  constructor(event: OracleNameChanged) {
+    this._event = event;
+  }
+
+  get oracle(): Address {
     return this._event.parameters[0].value.toAddress();
   }
 
@@ -129,7 +195,7 @@ export class OracleRemoved__Params {
     this._event = event;
   }
 
-  get _oracle(): Address {
+  get oracle(): Address {
     return this._event.parameters[0].value.toAddress();
   }
 }
