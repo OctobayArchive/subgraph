@@ -23,6 +23,6 @@ dataSources:
       eventHandlers:
         - event: IssueDepositEvent(address,uint256,string,uint256)
           handler: handleIssueDepositEvent
-        - event: OracleAdded(address,string)
-          handler: handleOracleAddressEvent
+        - event: OracleAddedEvent(address,string)
+          handler: handleOracleAddedEvent
       file: ./src/mapping.ts
