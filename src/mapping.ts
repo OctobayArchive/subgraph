@@ -1,5 +1,5 @@
-import { OctoBay, IssueDepositEvent, OracleAddedEvent } from '../generated/OctoBay/OctoBay'
-import { Issue, IssueDeposit, Oracle, OracleJob } from '../generated/schema'
+import { OctoBay, IssueDepositEvent, OracleAddedEvent, UserAddedEvent } from '../generated/OctoBay/OctoBay'
+import { Issue, IssueDeposit, Oracle, OracleJob, User } from '../generated/schema'
 
 export function handleIssueDepositEvent(event: IssueDepositEvent): void {
   let issue = Issue.load(event.params.issueId)
@@ -30,4 +30,12 @@ export function handleOracleAddedEvent(event: OracleAddedEvent): void {
     newJob.oracle = newOracle
     newJob.save()
   })
+}
+
+export function handleUserAddedEvent(event: UserAddedEvent): void {
+  const user = new User(event.params.id)
+  user.name = event.params.name
+  user.ethAddress = event.params.ethAddress
+  user.status = event.params.status
+  user.save()
 }
