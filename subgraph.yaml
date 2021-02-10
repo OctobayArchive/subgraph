@@ -8,7 +8,7 @@ dataSources:
     name: OctoBay
     network: kovan
     source:
-      address: '0xadcAf9530650357a45030f8506ED326F8231E703'
+      address: '0x2B6f8aC3EfA5663E6D33b10C7Ada80f5f66b380f'
       abi: OctoBay
       startBlock: 23088385
     mapping:
@@ -23,4 +23,6 @@ dataSources:
       eventHandlers:
         - event: IssueDepositEvent(address,uint256,string,uint256)
           handler: handleIssueDepositEvent
+        - event: OracleAdded(address,string)
+          handler: handleOracleAddressEvent
       file: ./src/mapping.ts

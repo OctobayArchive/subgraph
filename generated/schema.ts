@@ -109,3 +109,110 @@ export class IssueDeposit extends Entity {
     this.set("issue", Value.fromString(value));
   }
 }
+
+export class Oracle extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Oracle entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Oracle entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Oracle", id.toString(), this);
+  }
+
+  static load(id: string): Oracle | null {
+    return store.get("Oracle", id) as Oracle | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get ethAccount(): Bytes {
+    let value = this.get("ethAccount");
+    return value.toBytes();
+  }
+
+  set ethAccount(value: Bytes) {
+    this.set("ethAccount", Value.fromBytes(value));
+  }
+
+  get jobs(): Array<string> {
+    let value = this.get("jobs");
+    return value.toStringArray();
+  }
+
+  set jobs(value: Array<string>) {
+    this.set("jobs", Value.fromStringArray(value));
+  }
+}
+
+export class OracleJob extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save OracleJob entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save OracleJob entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("OracleJob", id.toString(), this);
+  }
+
+  static load(id: string): OracleJob | null {
+    return store.get("OracleJob", id) as OracleJob | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get name(): string {
+    let value = this.get("name");
+    return value.toString();
+  }
+
+  set name(value: string) {
+    this.set("name", Value.fromString(value));
+  }
+
+  get jobId(): Bytes {
+    let value = this.get("jobId");
+    return value.toBytes();
+  }
+
+  set jobId(value: Bytes) {
+    this.set("jobId", Value.fromBytes(value));
+  }
+
+  get oracle(): string {
+    let value = this.get("oracle");
+    return value.toString();
+  }
+
+  set oracle(value: string) {
+    this.set("oracle", Value.fromString(value));
+  }
+}

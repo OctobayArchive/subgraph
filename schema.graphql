@@ -9,3 +9,16 @@ type IssueDeposit @entity {
   amount: BigInt!
   issue: Issue!
 }
+
+type Oracle @entity {
+  id: ID!
+  ethAccount: Bytes!
+  jobs: [OracleJob!]! @derivedFrom(field: "oracle")
+}
+
+type OracleJob @entity {
+  id: ID!
+  name: String!
+  jobId: Bytes!
+  oracle: Oracle!
+}
