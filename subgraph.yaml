@@ -10,17 +10,23 @@ dataSources:
     source:
       address: '0x2B6f8aC3EfA5663E6D33b10C7Ada80f5f66b380f'
       abi: OctoBay
-      startBlock: 23088385
+      startBlock: 23386457
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
+        - User
         - Issue
+        - IssueDeposit
+        - Oracle
+        - OracleJob
       abis:
         - name: OctoBay
           file: ./abis/OctoBay.json
       eventHandlers:
+        - event: UserAddedEvent(bytes32,string,address,uint8)
+          handler: handleUserAddedEvent
         - event: IssueDepositEvent(address,uint256,string,uint256)
           handler: handleIssueDepositEvent
         - event: OracleAddedEvent(address,string)
