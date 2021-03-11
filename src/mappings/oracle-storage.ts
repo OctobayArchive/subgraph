@@ -10,7 +10,7 @@ export function handleOracleAddedEvent(event: OracleAddedEvent): void {
   newOracle.save()
 
   // add jobs from chain
-  let registerJobOnChain = oracleStorage.getOracleJob(event.params.oracle, 0)
+  let registerJobOnChain = oracleStorage.getOracleJob(event.params.oracle, 'register')
   let registerJob = new OracleJob(registerJobOnChain.value0.toString())
   registerJob.name = 'register'
   registerJob.fee = registerJobOnChain.value1
