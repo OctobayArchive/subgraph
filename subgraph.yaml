@@ -1,15 +1,36 @@
 specVersion: 0.0.2
-description: OctoBay
+description: Octobay
 repository: https://github.com/octobay/graph
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: OctoBay
+    name: Octobay
     network: kovan
     source:
       address: '0x2B6f8aC3EfA5663E6D33b10C7Ada80f5f66b380f'
-      abi: OctoBay
+      abi: Octobay
+      startBlock: 23386457
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Issue
+        - IssueDeposit
+      abis:
+        - name: Octobay
+          file: ./abis/Octobay.json
+      eventHandlers:
+        - event: IssueDepositEvent(address,uint256,string,uint256)
+          handler: handleIssueDepositEvent
+      file: ./src/mappings/octobay.ts
+  - kind: ethereum/contract
+    name: UserAddressStorage
+    network: kovan
+    source:
+      address: '0x0000000000000000000000000000000000000000'
+      abi: UserAddressStorage
       startBlock: 23386457
     mapping:
       kind: ethereum/events
@@ -17,18 +38,32 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - User
-        - Issue
-        - IssueDeposit
+        - UserAddress
+      abis:
+        - name: UserAddressStorage
+          file: ./abis/UserAddressStorage.json
+      eventHandlers:
+        - event: UserAddressAddedEvent(string,bytes32,address)
+          handler: handleUserAddressAddedEvent
+      file: ./src/mappings/user-address-storage.ts
+  - kind: ethereum/contract
+    name: OracleStorage
+    network: kovan
+    source:
+      address: '0x0000000000000000000000000000000000000000'
+      abi: OracleStorage
+      startBlock: 23386457
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
         - Oracle
         - OracleJob
       abis:
-        - name: OctoBay
-          file: ./abis/OctoBay.json
+        - name: OracleStorage
+          file: ./abis/OracleStorage.json
       eventHandlers:
-        - event: UserAddedEvent(bytes32,string,address,uint8)
-          handler: handleUserAddedEvent
-        - event: IssueDepositEvent(address,uint256,string,uint256)
-          handler: handleIssueDepositEvent
         - event: OracleAddedEvent(address,string)
           handler: handleOracleAddedEvent
-      file: ./src/mapping.ts
+      file: ./src/mappings/oracle-storage.ts

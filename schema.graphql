@@ -1,8 +1,13 @@
 type User @entity {
   id: ID!
-  name: String!
-  ethAddress: Bytes!
-  status: Int!
+  addresses: [UserAddress!]! @derivedFrom(field: "user")
+}
+
+type UserAddress @entity {
+  id: ID!
+  name: Bytes!
+  address: Bytes!
+  user: User!
 }
 
 type Issue @entity {
@@ -20,7 +25,7 @@ type IssueDeposit @entity {
 type Oracle @entity {
   id: ID!
   name: String!
-  ethAccount: Bytes!
+  ethAddress: Bytes!
   jobs: [OracleJob!]! @derivedFrom(field: "oracle")
 }
 
