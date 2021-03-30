@@ -35,3 +35,45 @@ type OracleJob @entity {
   fee: BigInt!
   oracle: Oracle!
 }
+
+type GovernanceDepartment @entity {
+  id: ID!
+  projectId: String!
+  tokenAddress: Bytes!
+  name: String!
+  symbol: String!
+  minQuorum: Int!
+  requiredSharesToCreateProposals: Int!
+  holders: [GovernanceTokenHolder!] @derivedFrom(field: "department")
+  nfts: [GovernancePermissionNFT!] @derivedFrom(field: "department")
+  proposals: [GovernanceProposal!] @derivedFrom(field: "department")
+}
+
+type GovernanceTokenHolder @entity {
+  id: ID!
+  githubUserId: String!
+  ethAddress: Bytes!
+  balance: BigInt!
+  department: GovernanceDepartment!
+}
+
+type GovernancePermissionNFT @entity {
+  id: ID!
+  ownerAddress: Bytes!
+  permissions: [String!]!
+  department: GovernanceDepartment!
+}
+
+type GovernanceProposal @entity {
+  id: ID!
+  quorum: Int!
+  discussionId: String!
+  votes: [GovernanceProposalVote!] @derivedFrom(field: "proposal")
+  department: GovernanceDepartment!
+}
+
+type GovernanceProposalVote @entity {
+  id: ID!
+  holder: GovernanceTokenHolder!
+  percentage: Int!
+}
