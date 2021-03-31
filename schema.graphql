@@ -68,6 +68,8 @@ type GovernanceProposal @entity {
   id: ID!
   quorum: Int!
   discussionId: String!
+  startDate: Int!
+  endDate: Int!
   votes: [GovernanceProposalVote!] @derivedFrom(field: "proposal")
   department: GovernanceDepartment!
 }
