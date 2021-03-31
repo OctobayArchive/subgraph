@@ -67,3 +67,31 @@ dataSources:
         - event: OracleAddedEvent(address,string)
           handler: handleOracleAddedEvent
       file: ./src/mappings/oracle-storage.ts
+  - kind: ethereum/contract
+    name: OctobayGovernor
+    network: kovan
+    source:
+      address: '0x0000000000000000000000000000000000000000'
+      abi: OctobayGovernor
+      startBlock: 23386457
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - GovernanceDepartment
+        - GovernanceTokenHolder
+        - GovernancePermissionNFT
+        - GovernanceProposal
+        - GovernanceProposalVote
+      abis:
+        - name: OctobayGovernor
+          file: ./abis/OctobayGovernor.json
+      eventHandlers:
+        - event: DepartmentCreatedEvent(string,uint256)
+          handler: handleDepartmentCreatedEvent
+        - event: ProposalCreatedEvent(string,string,uint256,uint256,uint16,address,uint256)
+          handler: handleProposalCreatedEvent
+        - event: VoteCastEvent(string,uint256,int16,address)
+          handler: handleVoteCastEvent
+      file: ./src/mappings/governor.ts
