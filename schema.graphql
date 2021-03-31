@@ -78,4 +78,5 @@ type GovernanceProposalVote @entity {
   id: ID!
   holder: GovernanceTokenHolder!
   percentage: Int!
+  proposal: GovernanceProposal!
 }
