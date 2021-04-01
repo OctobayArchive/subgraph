@@ -88,7 +88,7 @@ dataSources:
         - name: OctobayGovernor
           file: ./abis/OctobayGovernor.json
       eventHandlers:
-        - event: DepartmentCreatedEvent(string,uint256)
+        - event: DepartmentCreatedEvent(string,uint16,uint16,string,string,address)
           handler: handleDepartmentCreatedEvent
         - event: ProposalCreatedEvent(string,string,uint256,uint256,uint16,address,uint256)
           handler: handleProposalCreatedEvent
