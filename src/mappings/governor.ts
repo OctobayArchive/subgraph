@@ -4,11 +4,11 @@ import { GovernanceDepartment, GovernanceProposal, GovernanceProposalVote } from
 export function handleDepartmentCreatedEvent(event: DepartmentCreatedEvent): void {
   let department = new GovernanceDepartment(event.transaction.hash.toHex() + '-' + event.logIndex.toString())
   department.projectId = event.params.projectId
-  department.tokenAddress = event.params.tokenAddress
-  department.name = event.params.name
-  department.symbol = event.params.symbol
+  department.tokenAddress = event.params.tokenAddr
+  department.name = event.params.tokenName
+  department.symbol = event.params.tokenSymbol
   department.minQuorum = event.params.minQuorum
-  department.requiredSharesToCreateProposals = event.params.requiredSharesToCreateProposals
+  department.requiredSharesToCreateProposals = event.params.newProposalShare
   department.save()
 }
 
@@ -18,14 +18,14 @@ export function handleProposalCreatedEvent(event: ProposalCreatedEvent): void {
   proposal.discussionId = event.params.discussionId
   proposal.startDate = event.params.startDate
   proposal.endDate = event.params.endDate
-  proposal.department = event.params.department
+  proposal.department = event.params.projectId
   proposal.save()
 }
 
-export function handleVoteCastEvent(event: VoteCastEvent): void {
-  let vote = new GovernanceProposalVote(event.transaction.hash.toHex() + '-' + event.logIndex.toString())
-  vote.holder = event.params.voter
-  vote.percentage = event.params.vote
-  vote.proposal = event.params.proposalId
-  vote.save()
-}
+// export function handleVoteCastEvent(event: VoteCastEvent): void {
+//   let vote = new GovernanceProposalVote(event.transaction.hash.toHex() + '-' + event.logIndex.toString())
+//   vote.holder = event.params.voter
+//   vote.percentage = event.params.vote
+//   vote.proposal = event.params.proposalId
+//   vote.save()
+// }
