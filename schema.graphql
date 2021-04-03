@@ -1,3 +1,8 @@
+type NodeIdCounter @entity {
+  id: ID!
+  current: BigInt!
+}
+
 type User @entity {
   id: ID!
   addresses: [UserAddress!]! @derivedFrom(field: "user")
@@ -68,8 +73,8 @@ type GovernanceProposal @entity {
   id: ID!
   quorum: Int!
   discussionId: String!
-  startDate: Int!
-  endDate: Int!
+  startDate: BigInt!
+  endDate: BigInt!
   votes: [GovernanceProposalVote!] @derivedFrom(field: "proposal")
   department: GovernanceDepartment!
 }
