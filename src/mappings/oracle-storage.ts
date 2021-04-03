@@ -1,5 +1,6 @@
 import { OracleStorage, OracleAddedEvent } from '../../generated/OracleStorage/OracleStorage'
 import { Oracle, OracleJob } from '../../generated/schema'
+// @ts-ignore
 import { getNextNodeId } from './nodeIdCounter'
 
 export function handleOracleAddedEvent(event: OracleAddedEvent): void {

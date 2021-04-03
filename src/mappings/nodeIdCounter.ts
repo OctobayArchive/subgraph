@@ -1,7 +1,7 @@
 import { BigInt } from '@graphprotocol/graph-ts'
 import { NodeIdCounter } from '../../generated/schema'
 
-export function getNextNodeId(): String {
+export function getNextNodeId(): string {
   let nodeIdCounter = NodeIdCounter.load('')
   if (!nodeIdCounter) {
     nodeIdCounter = new NodeIdCounter('')
