@@ -11,7 +11,7 @@ export function handleUserAddressAddedEvent(event: UserAddressAddedEvent): void 
   }
   let userAddress = new UserAddress(getNextNodeId())
   userAddress.user = event.params.userId
-  userAddress.name = event.params.addressName
+  userAddress.name = event.params.addressName.toString()
   userAddress.address = event.params.ethAddress
   userAddress.save()
 }

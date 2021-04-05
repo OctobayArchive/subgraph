@@ -10,7 +10,7 @@ type User @entity {
 
 type UserAddress @entity {
   id: ID!
-  name: Bytes!
+  name: String!
   address: Bytes!
   user: User!
 }
