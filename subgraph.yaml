@@ -68,6 +68,8 @@ dataSources:
           handler: handleOracleAddedEvent
         - event: OracleRemovedEvent(address)
           handler: handleOracleRemovedEvent
+        - event: OracleJobAddedEvent(address,string,bytes32)
+          handler: handleOracleJobAddedEvent
         - event: OracleJobRemovedEvent(address,string,bytes32)
           handler: handleOracleJobRemovedEvent
       file: ./src/mappings/oracle-storage.ts

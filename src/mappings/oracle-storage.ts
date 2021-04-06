@@ -1,5 +1,5 @@
-import { store } from '@graphprotocol/graph-ts'
-import { OracleStorage, OracleAddedEvent, OracleRemovedEvent, OracleJobRemovedEvent } from '../../generated/OracleStorage/OracleStorage'
+import { BigInt, store } from '@graphprotocol/graph-ts'
+import { OracleStorage, OracleAddedEvent, OracleRemovedEvent, OracleJobRemovedEvent, OracleJobAddedEvent } from '../../generated/OracleStorage/OracleStorage'
 import { Oracle, OracleJob } from '../../generated/schema'
 
 export function handleOracleAddedEvent(event: OracleAddedEvent): void {
@@ -25,6 +25,14 @@ export function handleOracleRemovedEvent(event: OracleRemovedEvent): void {
   if (oracle) {
     store.remove('Oracle', oracle.id)
   }
+}
+
+export function handleOracleJobAddedEvent(event: OracleJobAddedEvent): void {
+  let registerJob = new OracleJob(event.params.id.toString())
+  registerJob.name = event.params.name
+  registerJob.fee = BigInt.fromString('10000000000000000')
+  registerJob.oracle = event.params.oracle.toHexString()
+  registerJob.save()
 }
 
 export function handleOracleJobRemovedEvent(event: OracleJobRemovedEvent): void {
