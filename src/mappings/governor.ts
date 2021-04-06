@@ -6,7 +6,7 @@ import { getNextNodeId } from './nodeIdCounter'
 export function handleDepartmentCreatedEvent(event: DepartmentCreatedEvent): void {
   let department = new GovernanceDepartment(getNextNodeId())
   department.projectId = event.params.projectId
-  department.tokenAddress = event.params.tokenAddr
+  department.tokenAddress = event.params.tokenAddress
   department.name = event.params.tokenName
   department.symbol = event.params.tokenSymbol
   department.minQuorum = event.params.minQuorum
