@@ -8,7 +8,7 @@ dataSources:
     name: Octobay
     network: kovan
     source:
-      address: '0x2259a7A9E31671Aa011D48b4c9d653Df9a42A1d4'
+      address: '0x0774eb6260b521C41cC4c517De700D2d4748f52f'
       abi: Octobay
       startBlock: 0
     mapping:
@@ -50,7 +50,7 @@ dataSources:
     name: OracleStorage
     network: kovan
     source:
-      address: '0x909C498b29971ffD44675363b1Ea70af328aE7E4'
+      address: '0xB6864BFBF488bCfE2395D17ED3Aa693867c973Ce'
       abi: OracleStorage
       startBlock: 0
     mapping:
