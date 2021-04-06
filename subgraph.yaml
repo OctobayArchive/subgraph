@@ -8,9 +8,9 @@ dataSources:
     name: Octobay
     network: kovan
     source:
-      address: '0x3132Df84b1E5Df1690B6d5D8698130878bCa4A5f'
+      address: '0xC3cCf49F476F5F43Cf63590cE0F1894304267E7E'
       abi: Octobay
-      startBlock: 0
+      startBlock: 24176753
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -29,9 +29,9 @@ dataSources:
     name: UserAddressStorage
     network: kovan
     source:
-      address: '0x004277ccC7f39Fa3A59007f8770F33C2468876B3'
+      address: '0xD8dc149Fd083BAD7e72fB865f2EC60fa508FE483'
       abi: UserAddressStorage
-      startBlock: 0
+      startBlock: 24176753
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -50,9 +50,9 @@ dataSources:
     name: OracleStorage
     network: kovan
     source:
-      address: '0x7aa397146011eB300123f14d2A35c7225b7e7f93'
+      address: '0x18825DFCf0Da8F3039b59E37BD28fcDe671A25Dd'
       abi: OracleStorage
-      startBlock: 0
+      startBlock: 24176753
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -77,9 +77,9 @@ dataSources:
     name: OctobayGovernor
     network: kovan
     source:
-      address: '0x7da3EF7602d45Ddc7837B543d030Efd5E1BcaAc6'
+      address: '0xCC7E98504B6735C7B66Af80bd402629C20B65340'
       abi: OctobayGovernor
-      startBlock: 0
+      startBlock: 24176753
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
