@@ -1,5 +1,16 @@
 [
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_octobayGovNFT",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -35,36 +46,11 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "tokenAddr",
+        "name": "tokenAddress",
         "type": "address"
       }
     ],
     "name": "DepartmentCreatedEvent",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "symbol",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "tokenAddr",
-        "type": "address"
-      }
-    ],
-    "name": "NewTokenEvent",
     "type": "event"
   },
   {
@@ -215,10 +201,30 @@
         "internalType": "uint16",
         "name": "newProposalShare",
         "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "minQuorum",
+        "type": "uint16"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "octobayGovNFT",
+    "outputs": [
+      {
+        "internalType": "contract OctobayGovNFT",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -231,7 +237,8 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -270,7 +277,8 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -295,6 +303,44 @@
       {
         "internalType": "uint16",
         "name": "_newProposalShare",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_minQuorum",
+        "type": "uint16"
+      },
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_symbol",
+        "type": "string"
+      }
+    ],
+    "name": "createGovernorAndToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_projectId",
+        "type": "string"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_newProposalShare",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_minQuorum",
         "type": "uint16"
       }
     ],
@@ -358,7 +404,8 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
