@@ -1,10 +1,8 @@
 import { DepartmentCreatedEvent, ProposalCreatedEvent, VoteCastEvent } from '../../generated/OctobayGovernor/OctobayGovernor'
 import { GovernanceDepartment, GovernanceProposal, GovernanceProposalVote } from '../../generated/schema'
-// @ts-ignore
-import { getNextNodeId } from './nodeIdCounter'
 
 export function handleDepartmentCreatedEvent(event: DepartmentCreatedEvent): void {
-  let department = new GovernanceDepartment(getNextNodeId())
+  let department = new GovernanceDepartment(event.params.tokenAddress.toHexString())
   department.projectId = event.params.projectId
   department.tokenAddress = event.params.tokenAddress
   department.name = event.params.tokenName
@@ -15,9 +13,8 @@ export function handleDepartmentCreatedEvent(event: DepartmentCreatedEvent): voi
 }
 
 export function handleProposalCreatedEvent(event: ProposalCreatedEvent): void {
-  let proposal = new GovernanceProposal(getNextNodeId())
+  let proposal = new GovernanceProposal(event.params.discussionId)
   proposal.quorum = event.params.quorum
-  proposal.discussionId = event.params.discussionId
   proposal.startDate = event.params.startDate
   proposal.endDate = event.params.endDate
   proposal.department = event.params.projectId

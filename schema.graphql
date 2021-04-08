@@ -72,7 +72,6 @@ type GovernancePermissionNFT @entity {
 type GovernanceProposal @entity {
   id: ID!
   quorum: Int!
-  discussionId: String!
   startDate: BigInt!
   endDate: BigInt!
   votes: [GovernanceProposalVote!] @derivedFrom(field: "proposal")

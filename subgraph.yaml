@@ -8,7 +8,7 @@ dataSources:
     name: Octobay
     network: kovan
     source:
-      address: '0xC14Fee25846264a16677e0eA15EAB2b1562075eF'
+      address: '0x7B1040328F9e30556b61DD7A27BDaD9216511957'
       abi: Octobay
       startBlock: 24176753
     mapping:
@@ -29,7 +29,7 @@ dataSources:
     name: UserAddressStorage
     network: kovan
     source:
-      address: '0xD8dc149Fd083BAD7e72fB865f2EC60fa508FE483'
+      address: '0x5d923dF8256738868cdDF178dbBA2f3a4410c663'
       abi: UserAddressStorage
       startBlock: 24176753
     mapping:
@@ -50,7 +50,7 @@ dataSources:
     name: OracleStorage
     network: kovan
     source:
-      address: '0x18825DFCf0Da8F3039b59E37BD28fcDe671A25Dd'
+      address: '0xa2D1E2C50d003b052CCFDEdeaC700fDC945bd43C'
       abi: OracleStorage
       startBlock: 24176753
     mapping:
@@ -77,9 +77,9 @@ dataSources:
     name: OctobayGovernor
     network: kovan
     source:
-      address: '0xCC7E98504B6735C7B66Af80bd402629C20B65340'
+      address: '0x7257D7c6697Fc6A5Cd1E72Bb5209C71ce9FD620e'
       abi: OctobayGovernor
-      startBlock: 24176753
+      startBlock: 24187850
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -87,7 +87,6 @@ dataSources:
       entities:
         - GovernanceDepartment
         - GovernanceTokenHolder
-        - GovernancePermissionNFT
         - GovernanceProposal
         - GovernanceProposalVote
       abis:
@@ -101,3 +100,23 @@ dataSources:
         # - event: VoteCastEvent(string,uint256,int16,address)
         #   handler: handleVoteCastEvent
       file: ./src/mappings/governor.ts
+  - kind: ethereum/contract
+    name: OctobayGovNFT
+    network: kovan
+    source:
+      address: '0x9B48DFc771f7e42962Fd9bA9FC305bb0b6A51AcA'
+      abi: OctobayGovNFT
+      startBlock: 24187834
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - GovernancePermissionNFT
+      abis:
+        - name: OctobayGovNFT
+          file: ./abis/OctobayGovNFT.json
+      eventHandlers:
+        - event: MintTokenForProjectEvent(address,string,uint256,address)
+          handler: handleMintTokenForProjectEvent
+      file: ./src/mappings/govnft.ts
