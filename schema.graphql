@@ -56,7 +56,6 @@ type GovernanceDepartment @entity {
 
 type GovernanceTokenHolder @entity {
   id: ID!
-  githubUserId: String!
   ethAddress: Bytes!
   balance: BigInt!
   department: GovernanceDepartment!
@@ -74,6 +73,7 @@ type GovernanceProposal @entity {
   quorum: Int!
   startDate: BigInt!
   endDate: BigInt!
+  balanceSnapshotId: BigInt!
   votes: [GovernanceProposalVote!] @derivedFrom(field: "proposal")
   department: GovernanceDepartment!
 }

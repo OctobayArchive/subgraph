@@ -8,7 +8,7 @@ dataSources:
     name: Octobay
     network: kovan
     source:
-      address: '0x7F19cB8957Dbd41A49FBFA8FA4B74A8c0981563E'
+      address: '0x434696e585B2ac4866FA05117727F6AfBE257b90'
       abi: Octobay
       startBlock: 24176753
     mapping:
@@ -18,12 +18,15 @@ dataSources:
       entities:
         - Issue
         - IssueDeposit
+        - GovernanceTokenHolder
       abis:
         - name: Octobay
           file: ./abis/Octobay.json
       eventHandlers:
         - event: IssueDepositEvent(address,uint256,string,uint256)
           handler: handleIssueDepositEvent
+        - event: AwardGovernanceTokensEvent(address,uint256,address)
+          handler: handleAwardGovernanceTokensEvent
       file: ./src/mappings/octobay.ts
   - kind: ethereum/contract
     name: UserAddressStorage
@@ -77,7 +80,7 @@ dataSources:
     name: OctobayGovernor
     network: kovan
     source:
-      address: '0x2EE7F55a86EAF574A984eE645b0eEdF0F46Dce06'
+      address: '0xb2F0aBB99CD33DC378FAa6D84017C5f07299bDba'
       abi: OctobayGovernor
       startBlock: 24187850
     mapping:
@@ -95,10 +98,10 @@ dataSources:
       eventHandlers:
         - event: DepartmentCreatedEvent(string,uint16,uint16,string,string,address)
           handler: handleDepartmentCreatedEvent
-        - event: ProposalCreatedEvent(address,string,uint256,uint256,uint16,address,uint256)
+        - event: ProposalCreatedEvent(address,string,uint256,uint256,uint16,address,uint256,uint256)
           handler: handleProposalCreatedEvent
-        # - event: VoteCastEvent(string,uint256,int16,address)
-        #   handler: handleVoteCastEvent
+        - event: VoteCastEvent(string,uint256,string,int16,address)
+          handler: handleVoteCastEvent
       file: ./src/mappings/governor.ts
   - kind: ethereum/contract
     name: OctobayGovNFT
