@@ -8,7 +8,7 @@ dataSources:
     name: Octobay
     network: kovan
     source:
-      address: '0x7B1040328F9e30556b61DD7A27BDaD9216511957'
+      address: '0x7F19cB8957Dbd41A49FBFA8FA4B74A8c0981563E'
       abi: Octobay
       startBlock: 24176753
     mapping:
@@ -77,7 +77,7 @@ dataSources:
     name: OctobayGovernor
     network: kovan
     source:
-      address: '0x7257D7c6697Fc6A5Cd1E72Bb5209C71ce9FD620e'
+      address: '0x2EE7F55a86EAF574A984eE645b0eEdF0F46Dce06'
       abi: OctobayGovernor
       startBlock: 24187850
     mapping:
@@ -95,7 +95,7 @@ dataSources:
       eventHandlers:
         - event: DepartmentCreatedEvent(string,uint16,uint16,string,string,address)
           handler: handleDepartmentCreatedEvent
-        - event: ProposalCreatedEvent(string,string,uint256,uint256,uint16,address,uint256)
+        - event: ProposalCreatedEvent(address,string,uint256,uint256,uint16,address,uint256)
           handler: handleProposalCreatedEvent
         # - event: VoteCastEvent(string,uint256,int16,address)
         #   handler: handleVoteCastEvent

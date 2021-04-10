@@ -17,7 +17,7 @@ export function handleProposalCreatedEvent(event: ProposalCreatedEvent): void {
   proposal.quorum = event.params.quorum
   proposal.startDate = event.params.startDate
   proposal.endDate = event.params.endDate
-  proposal.department = event.params.projectId
+  proposal.department = event.params.tokenAddress.toHexString()
   proposal.save()
 }
 

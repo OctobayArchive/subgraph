@@ -77,9 +77,9 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "string",
-        "name": "projectId",
-        "type": "string"
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
       },
       {
         "indexed": false,
@@ -322,7 +322,13 @@
       }
     ],
     "name": "createGovernorAndToken",
-    "outputs": [],
+    "outputs": [
+      {
+        "internalType": "contract OctobayGovToken",
+        "name": "newToken",
+        "type": "address"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -351,6 +357,11 @@
   },
   {
     "inputs": [
+      {
+        "internalType": "address",
+        "name": "_tokenAddress",
+        "type": "address"
+      },
       {
         "internalType": "string",
         "name": "_projectId",
