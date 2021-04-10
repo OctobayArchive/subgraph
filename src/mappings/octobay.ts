@@ -22,10 +22,11 @@ export function handleAwardGovernanceTokensEvent(event: AwardGovernanceTokensEve
   if (!holder) {
     holder = new GovernanceTokenHolder(event.params.recipient.toHexString())
     holder.ethAddress = event.params.recipient
+    holder.balance = event.params.amount
     holder.department = event.params.tokenAddr.toHexString()
     holder.save()
+  } else {
+    holder.balance = holder.balance.plus(event.params.amount)
+    holder.save()
   }
-
-  holder.balance = holder.balance.plus(event.params.amount)
-  holder.save()
 }
