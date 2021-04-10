@@ -14,6 +14,7 @@ export function handleDepartmentCreatedEvent(event: DepartmentCreatedEvent): voi
 
 export function handleProposalCreatedEvent(event: ProposalCreatedEvent): void {
   let proposal = new GovernanceProposal(event.params.discussionId)
+  proposal.count = event.params.proposalId
   proposal.quorum = event.params.quorum
   proposal.startDate = event.params.startDate
   proposal.endDate = event.params.endDate

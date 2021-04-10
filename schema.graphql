@@ -70,6 +70,7 @@ type GovernancePermissionNFT @entity {
 
 type GovernanceProposal @entity {
   id: ID!
+  count: BigInt!
   quorum: Int!
   startDate: BigInt!
   endDate: BigInt!
