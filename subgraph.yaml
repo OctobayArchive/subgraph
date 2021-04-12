@@ -8,7 +8,7 @@ dataSources:
     name: Octobay
     network: kovan
     source:
-      address: '0x434696e585B2ac4866FA05117727F6AfBE257b90'
+      address: '0xd00Bfe0D99D6c35C6a58287B670185DADCc003c1'
       abi: Octobay
       startBlock: 24176753
     mapping:
@@ -32,7 +32,7 @@ dataSources:
     name: UserAddressStorage
     network: kovan
     source:
-      address: '0x5d923dF8256738868cdDF178dbBA2f3a4410c663'
+      address: '0x3768611e8fAce7d52d94753E81103200B0E74577'
       abi: UserAddressStorage
       startBlock: 24176753
     mapping:
@@ -53,7 +53,7 @@ dataSources:
     name: OracleStorage
     network: kovan
     source:
-      address: '0xa2D1E2C50d003b052CCFDEdeaC700fDC945bd43C'
+      address: '0x52F7E7cc9D251462b3648b5790592CbE9D90B131'
       abi: OracleStorage
       startBlock: 24176753
     mapping:
@@ -80,7 +80,7 @@ dataSources:
     name: OctobayGovernor
     network: kovan
     source:
-      address: '0xb2F0aBB99CD33DC378FAa6D84017C5f07299bDba'
+      address: '0xCf42AC6088BDDB5A4b20bBFb601f6848Caf23cD2'
       abi: OctobayGovernor
       startBlock: 24187850
     mapping:
@@ -107,7 +107,7 @@ dataSources:
     name: OctobayGovNFT
     network: kovan
     source:
-      address: '0x9B48DFc771f7e42962Fd9bA9FC305bb0b6A51AcA'
+      address: '0xb61a6309351472DEA781B9D9D8d1dfDE0B9B645C'
       abi: OctobayGovNFT
       startBlock: 24187834
     mapping:
