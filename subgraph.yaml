@@ -25,6 +25,8 @@ dataSources:
       eventHandlers:
         - event: IssueDepositEvent(address,uint256,string,uint256)
           handler: handleIssueDepositEvent
+        - event: WithdrawIssueDepositEvent(string,address,uint256)
+          handler: handleWithdrawIssueDepositEvent
         - event: AwardGovernanceTokensEvent(address,uint256,address)
           handler: handleAwardGovernanceTokensEvent
       file: ./src/mappings/octobay.ts

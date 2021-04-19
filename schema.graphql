@@ -17,6 +17,7 @@ type UserAddress @entity {
 
 type Issue @entity {
   id: ID!
+  status: Int!
   deposits: [IssueDeposit!]! @derivedFrom(field: "issue")
 }
 
