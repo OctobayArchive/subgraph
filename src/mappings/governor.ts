@@ -3,6 +3,7 @@ import { GovernanceDepartment, GovernanceProposal, GovernanceProposalVote } from
 
 export function handleDepartmentCreatedEvent(event: DepartmentCreatedEvent): void {
   let department = new GovernanceDepartment(event.params.tokenAddress.toHexString())
+  department.creator = event.params.creator
   department.projectId = event.params.projectId
   department.tokenAddress = event.params.tokenAddress
   department.name = event.params.tokenName
