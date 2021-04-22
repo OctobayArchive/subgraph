@@ -188,9 +188,9 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "string",
-        "name": "projectId",
-        "type": "string"
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
       },
       {
         "indexed": false,
@@ -223,22 +223,22 @@
   {
     "inputs": [
       {
-        "internalType": "string",
+        "internalType": "contract OctobayGovToken",
         "name": "",
-        "type": "string"
+        "type": "address"
       }
     ],
-    "name": "governorsByProjectId",
+    "name": "governorsByTokenAddr",
     "outputs": [
-      {
-        "internalType": "address",
-        "name": "creator",
-        "type": "address"
-      },
       {
         "internalType": "bool",
         "name": "isValue",
         "type": "bool"
+      },
+      {
+        "internalType": "address",
+        "name": "creator",
+        "type": "address"
       },
       {
         "internalType": "uint256",
@@ -286,6 +286,25 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "contract OctobayGovToken",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "projectsByToken",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "renounceOwnership",
     "outputs": [],
@@ -311,6 +330,11 @@
         "internalType": "string",
         "name": "",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "name": "tokensByProjectId",
@@ -374,7 +398,7 @@
     "outputs": [
       {
         "internalType": "contract OctobayGovToken",
-        "name": "newToken",
+        "name": "",
         "type": "address"
       }
     ],
@@ -389,9 +413,9 @@
         "type": "address"
       },
       {
-        "internalType": "string",
-        "name": "_projectId",
-        "type": "string"
+        "internalType": "contract OctobayGovToken",
+        "name": "_newToken",
+        "type": "address"
       },
       {
         "internalType": "uint16",
@@ -412,14 +436,9 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_tokenAddress",
+        "internalType": "contract OctobayGovToken",
+        "name": "_govToken",
         "type": "address"
-      },
-      {
-        "internalType": "string",
-        "name": "_projectId",
-        "type": "string"
       },
       {
         "internalType": "string",
@@ -450,9 +469,9 @@
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "_projectId",
-        "type": "string"
+        "internalType": "contract OctobayGovToken",
+        "name": "_govToken",
+        "type": "address"
       },
       {
         "internalType": "uint256",
@@ -474,9 +493,9 @@
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "_projectId",
-        "type": "string"
+        "internalType": "contract OctobayGovToken",
+        "name": "_govToken",
+        "type": "address"
       },
       {
         "internalType": "uint256",
@@ -526,9 +545,9 @@
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "_oldProjectId",
-        "type": "string"
+        "internalType": "contract OctobayGovToken",
+        "name": "_govToken",
+        "type": "address"
       },
       {
         "internalType": "string",

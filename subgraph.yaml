@@ -109,7 +109,7 @@ dataSources:
           handler: handleDepartmentCreatedEvent
         - event: ProposalCreatedEvent(address,string,uint256,uint256,uint16,address,uint256,uint256)
           handler: handleProposalCreatedEvent
-        - event: VoteCastEvent(string,uint256,string,int16,address)
+        - event: VoteCastEvent(address,uint256,string,int16,address)
           handler: handleVoteCastEvent
         - event: AwardGovernanceTokensEvent(address,uint256,address)
           handler: handleAwardGovernanceTokensEvent
