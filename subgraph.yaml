@@ -5,11 +5,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Octobay
+    name: DepositStorage
     network: kovan
     source:
-      address: '0xd00Bfe0D99D6c35C6a58287B670185DADCc003c1'
-      abi: Octobay
+      address: '0x52240D5b8bcCE950d520D4fff5CCFae6Cf4F4Ead'
+      abi: DepositStorage
       startBlock: 24176753
     mapping:
       kind: ethereum/events
@@ -18,18 +18,25 @@ dataSources:
       entities:
         - Issue
         - IssueDeposit
-        - GovernanceTokenHolder
+        - User
+        - UserDeposit
       abis:
-        - name: Octobay
-          file: ./abis/Octobay.json
+        - name: DepositStorage
+          file: ./abis/DepositStorage.json
       eventHandlers:
         - event: IssueDepositEvent(address,uint256,string,uint256)
           handler: handleIssueDepositEvent
-        - event: WithdrawIssueDepositEvent(string,address,uint256)
-          handler: handleWithdrawIssueDepositEvent
-        - event: AwardGovernanceTokensEvent(address,uint256,address)
-          handler: handleAwardGovernanceTokensEvent
-      file: ./src/mappings/octobay.ts
+        - event: WithdrawIssueDepositsEvent(string)
+          handler: handleWithdrawIssueDepositsEvent
+        - event: RefundIssueDepositEvent(uint256)
+          handler: handleRefundIssueDepositEvent
+        - event: UserDepositEvent(address,uint256,string,uint256)
+          handler: handleUserDepositEvent
+        - event: WithdrawUserDepositEvent(uint256)
+          handler: handleWithdrawUserDepositEvent
+        - event: RefundUserDepositEvent(uint256)
+          handler: handleRefundUserDepositEvent
+      file: ./src/mappings/deposit-storage.ts
   - kind: ethereum/contract
     name: UserAddressStorage
     network: kovan
@@ -82,7 +89,7 @@ dataSources:
     name: OctobayGovernor
     network: kovan
     source:
-      address: '0xCf42AC6088BDDB5A4b20bBFb601f6848Caf23cD2'
+      address: '0x66992AbEE2FF660C7F9257E3a2b4eC718077b06F'
       abi: OctobayGovernor
       startBlock: 24187850
     mapping:
@@ -104,12 +111,14 @@ dataSources:
           handler: handleProposalCreatedEvent
         - event: VoteCastEvent(string,uint256,string,int16,address)
           handler: handleVoteCastEvent
+        - event: AwardGovernanceTokensEvent(address,uint256,address)
+          handler: handleAwardGovernanceTokensEvent
       file: ./src/mappings/governor.ts
   - kind: ethereum/contract
     name: OctobayGovNFT
     network: kovan
     source:
-      address: '0xb61a6309351472DEA781B9D9D8d1dfDE0B9B645C'
+      address: '0xCf9bF430BA0844EB4D99b93BbC1669D73BAEa1e7'
       abi: OctobayGovNFT
       startBlock: 24187834
     mapping:

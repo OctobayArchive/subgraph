@@ -9,7 +9,7 @@ export function handleUserAddressAddedEvent(event: UserAddressAddedEvent): void 
     user = new User(event.params.userId)
     user.save()
   }
-  let userAddress = new UserAddress(getNextNodeId())
+  let userAddress = new UserAddress(event.params.ethAddress.toHexString())
   userAddress.user = event.params.userId
   userAddress.name = event.params.addressName.toString()
   userAddress.address = event.params.ethAddress

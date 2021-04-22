@@ -5,7 +5,15 @@ type NodeIdCounter @entity {
 
 type User @entity {
   id: ID!
-  addresses: [UserAddress!]! @derivedFrom(field: "user")
+  addresses: [UserAddress!] @derivedFrom(field: "user")
+  deposits: [UserDeposit!] @derivedFrom(field: "user")
+}
+
+type UserDeposit @entity {
+  id: ID!
+  from: Bytes!
+  amount: BigInt!
+  user: User!
 }
 
 type UserAddress @entity {

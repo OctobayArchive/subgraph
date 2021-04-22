@@ -1,5 +1,5 @@
-import { DepartmentCreatedEvent, ProposalCreatedEvent, VoteCastEvent } from '../../generated/OctobayGovernor/OctobayGovernor'
-import { GovernanceDepartment, GovernanceProposal, GovernanceProposalVote } from '../../generated/schema'
+import { DepartmentCreatedEvent, ProposalCreatedEvent, VoteCastEvent, AwardGovernanceTokensEvent } from '../../generated/OctobayGovernor/OctobayGovernor'
+import { GovernanceDepartment, GovernanceProposal, GovernanceProposalVote, GovernanceTokenHolder } from '../../generated/schema'
 
 export function handleDepartmentCreatedEvent(event: DepartmentCreatedEvent): void {
   let department = new GovernanceDepartment(event.params.tokenAddress.toHexString())
@@ -30,4 +30,18 @@ export function handleVoteCastEvent(event: VoteCastEvent): void {
   vote.percentage = event.params.vote
   vote.proposal = event.params.discussionId
   vote.save()
+}
+
+export function handleAwardGovernanceTokensEvent(event: AwardGovernanceTokensEvent): void {
+  let holder = GovernanceTokenHolder.load(event.params.recipient.toHexString())
+  if (!holder) {
+    holder = new GovernanceTokenHolder(event.params.recipient.toHexString())
+    holder.ethAddress = event.params.recipient
+    holder.balance = event.params.amount
+    holder.department = event.params.tokenAddr.toHexString()
+    holder.save()
+  } else {
+    holder.balance = holder.balance.plus(event.params.amount)
+    holder.save()
+  }
 }

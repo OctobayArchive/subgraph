@@ -16,6 +16,31 @@
       {
         "indexed": false,
         "internalType": "address",
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tokenAddr",
+        "type": "address"
+      }
+    ],
+    "name": "AwardGovernanceTokensEvent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
         "name": "creator",
         "type": "address"
       },
@@ -512,6 +537,29 @@
       }
     ],
     "name": "updateProjectId",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "payoutEth",
+        "type": "uint256"
+      },
+      {
+        "internalType": "contract OctobayGovToken",
+        "name": "tokenAddr",
+        "type": "address"
+      }
+    ],
+    "name": "awardGovernanceTokens",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
