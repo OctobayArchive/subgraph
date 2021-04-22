@@ -8,7 +8,7 @@ dataSources:
     name: DepositStorage
     network: kovan
     source:
-      address: '0x52240D5b8bcCE950d520D4fff5CCFae6Cf4F4Ead'
+      address: '0x14D5cb4a047863a5973B223a2460e0bf70D88759'
       abi: DepositStorage
       startBlock: 24176753
     mapping:
@@ -89,7 +89,7 @@ dataSources:
     name: OctobayGovernor
     network: kovan
     source:
-      address: '0x66992AbEE2FF660C7F9257E3a2b4eC718077b06F'
+      address: '0x1743dEF5d6B4e088EcfA78812351466B6a0E6EBD'
       abi: OctobayGovernor
       startBlock: 24187850
     mapping:
@@ -118,7 +118,7 @@ dataSources:
     name: OctobayGovNFT
     network: kovan
     source:
-      address: '0xCf9bF430BA0844EB4D99b93BbC1669D73BAEa1e7'
+      address: '0x6a1B1D8b6E02663d4Fcf8Fa64B7B190F82390A1a'
       abi: OctobayGovNFT
       startBlock: 24187834
     mapping:
