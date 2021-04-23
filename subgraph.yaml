@@ -133,4 +133,6 @@ dataSources:
       eventHandlers:
         - event: MintTokenForProjectEvent(address,string,uint256,address)
           handler: handleMintTokenForProjectEvent
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
       file: ./src/mappings/govnft.ts
