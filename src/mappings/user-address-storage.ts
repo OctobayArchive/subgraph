@@ -1,7 +1,5 @@
 import { UserAddressAddedEvent } from '../../generated/UserAddressStorage/UserAddressStorage'
 import { User, UserAddress } from '../../generated/schema'
-// @ts-ignore
-import { getNextNodeId } from './nodeIdCounter'
 
 export function handleUserAddressAddedEvent(event: UserAddressAddedEvent): void {
   let user = User.load(event.params.userId)
