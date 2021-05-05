@@ -8,7 +8,7 @@
     "codegen": "graph codegen",
     "build": "graph build",
     "deploy": "graph deploy octobay/octobay --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
-    "deploy-dev": "graph deploy octobay/octobay-dev --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
+    "deploy-dev": "graph deploy octobay/octobay-dev subgraph-dev.yaml --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
     "deploy-local": "graph deploy octobay/octobay --ipfs http://localhost:5001 --node http://127.0.0.1:8020"
   },
   "devDependencies": {
