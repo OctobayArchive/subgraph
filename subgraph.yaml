@@ -5,12 +5,46 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
+    name: Octobay
+    network: kovan
+    source:
+      address: '0x1075175080951b24251A6602Df9083c373aE8cb3'
+      abi: Octobay
+      startBlock: 24674539
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Config
+      abis:
+        - name: Octobay
+          file: ./abis/Octobay.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: SetTrustedForwarderEvent(address)
+          handler: handleSetTrustedForwarderEvent
+        - event: SetUserAddressStorageEvent(address)
+          handler: handleSetUserAddressStorageEvent
+        - event: SetOracleStorageEvent(address)
+          handler: handleSetOracleStorageEvent
+        - event: SetDepositStorageEvent(address)
+          handler: handleSetDepositStorageEvent
+        - event: SetOctobayGovernorEvent(address)
+          handler: handleSetOctobayGovernorEvent
+        - event: SetOctobayGovNFTEvent(address)
+          handler: handleSetOctobayGovNFTEvent
+        - event: SetEthUSDPriceFeedEvent(address)
+          handler: handleSetEthUSDPriceFeedEvent
+      file: ./src/mappings/octobay.ts
+  - kind: ethereum/contract
     name: DepositStorage
     network: kovan
     source:
-      address: '0x14D5cb4a047863a5973B223a2460e0bf70D88759'
+      address: '0x74f39c9CF68f435C22d465BEF366d6908265f6E4'
       abi: DepositStorage
-      startBlock: 24176753
+      startBlock: 24674539
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -41,9 +75,9 @@ dataSources:
     name: UserAddressStorage
     network: kovan
     source:
-      address: '0x3768611e8fAce7d52d94753E81103200B0E74577'
+      address: '0x0260360c2EAd16a64185dAf0Ac34F5272480E51e'
       abi: UserAddressStorage
-      startBlock: 24176753
+      startBlock: 24674539
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -62,9 +96,9 @@ dataSources:
     name: OracleStorage
     network: kovan
     source:
-      address: '0x52F7E7cc9D251462b3648b5790592CbE9D90B131'
+      address: '0xb7eCD4e2114d727E8ECB73b5296cF0BBfA332291'
       abi: OracleStorage
-      startBlock: 24176753
+      startBlock: 24674539
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -89,9 +123,9 @@ dataSources:
     name: OctobayGovernor
     network: kovan
     source:
-      address: '0x1743dEF5d6B4e088EcfA78812351466B6a0E6EBD'
+      address: '0xD46837C4Eb8Dc1A63330C023908C93A3C3cAF570'
       abi: OctobayGovernor
-      startBlock: 24187850
+      startBlock: 24674539
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -118,9 +152,9 @@ dataSources:
     name: OctobayGovNFT
     network: kovan
     source:
-      address: '0x6a1B1D8b6E02663d4Fcf8Fa64B7B190F82390A1a'
+      address: '0xdE356C3eeAc6aF25f0DcB71c4779aBBc695DA08a'
       abi: OctobayGovNFT
-      startBlock: 24187834
+      startBlock: 24674539
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
