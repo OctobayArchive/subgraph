@@ -1,11 +1,22 @@
-import { MintNFTForGovTokenEvent, Transfer } from '../../generated/OctobayGovNFT/OctobayGovNFT'
+import { OctobayGovNFT, MintNFTForGovTokenEvent, Transfer } from '../../generated/OctobayGovNFT/OctobayGovNFT'
 import { GovernancePermissionNFT } from '../../generated/schema'
 
 export function handleMintNFTForGovTokenEvent(event: MintNFTForGovTokenEvent): void {
   let nft = new GovernancePermissionNFT(event.params.tokenId.toString())
+  let contract = OctobayGovNFT.bind(event.address)
   nft.ownerAddress = event.params.to
-  nft.permissions = ['MINT', 'TRANSFER', 'SET_ISSUE_GOVTOKEN', 'CREATE_PROPOSAL']
   nft.department = event.params.govTokenAddress.toHexString()
+  nft.permissions = []
+  let permissions = nft.permissions
+  if (contract.hasPermission(event.params.tokenId, 0))
+    permissions.push('MINT')
+  if (contract.hasPermission(event.params.tokenId, 1))
+    permissions.push('TRANSFER')
+  if (contract.hasPermission(event.params.tokenId, 2))
+    permissions.push('SET_ISSUE_GOVTOKEN')
+  if (contract.hasPermission(event.params.tokenId, 3))
+    permissions.push('CREATE_PROPOSAL')
+  nft.permissions = permissions
   nft.save()
 }
 
