@@ -89,12 +89,6 @@
       },
       {
         "indexed": false,
-        "internalType": "string",
-        "name": "projectId",
-        "type": "string"
-      },
-      {
-        "indexed": false,
         "internalType": "uint256",
         "name": "tokenId",
         "type": "uint256"
@@ -106,7 +100,7 @@
         "type": "address"
       }
     ],
-    "name": "MintTokenForProjectEvent",
+    "name": "MintNFTForGovTokenEvent",
     "type": "event"
   },
   {
@@ -254,6 +248,26 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "govTokensByTokenId",
+    "outputs": [
+      {
+        "internalType": "contract OctobayGovToken",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "owner",
         "type": "address"
@@ -284,6 +298,20 @@
         "internalType": "string",
         "name": "",
         "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "octobay",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -351,32 +379,12 @@
         "type": "uint256"
       }
     ],
-    "name": "permissionsByTokenID",
+    "name": "permissionsByTokenId",
     "outputs": [
       {
         "internalType": "bool",
         "name": "",
         "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "projectIdsByTokenID",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
       }
     ],
     "stateMutability": "view",
@@ -652,17 +660,12 @@
         "type": "address"
       },
       {
-        "internalType": "string",
-        "name": "_projectId",
-        "type": "string"
-      },
-      {
-        "internalType": "address",
-        "name": "_govTokenAddress",
+        "internalType": "contract OctobayGovToken",
+        "name": "_govToken",
         "type": "address"
       }
     ],
-    "name": "mintTokenForProject",
+    "name": "mintNFTForGovToken",
     "outputs": [
       {
         "internalType": "uint256",
@@ -681,17 +684,22 @@
         "type": "address"
       },
       {
-        "internalType": "string",
-        "name": "_projectId",
-        "type": "string"
+        "internalType": "contract OctobayGovToken",
+        "name": "_govToken",
+        "type": "address"
+      },
+      {
+        "internalType": "enum OctobayGovNFT.Permission",
+        "name": "_perm",
+        "type": "uint8"
       }
     ],
-    "name": "getTokenIDForUserInProject",
+    "name": "userHasPermissionForGovToken",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "bool",
         "name": "",
-        "type": "uint256"
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -745,6 +753,34 @@
       }
     ],
     "name": "safeTransferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum OctobayGovNFT.Permission[]",
+        "name": "_perms",
+        "type": "uint8[]"
+      },
+      {
+        "internalType": "contract OctobayGovToken",
+        "name": "_govToken",
+        "type": "address"
+      }
+    ],
+    "name": "mintTokenWithPermissions",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

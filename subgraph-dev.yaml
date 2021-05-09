@@ -165,8 +165,8 @@ dataSources:
         - name: OctobayGovNFT
           file: ./abis/OctobayGovNFT.json
       eventHandlers:
-        - event: MintTokenForProjectEvent(address,string,uint256,address)
-          handler: handleMintTokenForProjectEvent
+        - event: MintNFTForGovTokenEvent(address,uint256,address)
+          handler: handleMintNFTForGovTokenEvent
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: ./src/mappings/govnft.ts
