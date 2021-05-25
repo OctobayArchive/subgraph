@@ -1,3 +1,6 @@
+"""
+A config object reflecting certain Octobay contract properties.
+"""
 type Config @entity {
   id: ID!
   owner: Bytes
@@ -10,12 +13,19 @@ type Config @entity {
   ethUSDPriceFeed: Bytes
 }
 
+"""
+A GitHub user with verified addresses and incoming deposits.
+The id equals the one on GitHub.
+"""
 type User @entity {
   id: ID!
   addresses: [UserAddress!] @derivedFrom(field: "user")
   deposits: [UserDeposit!] @derivedFrom(field: "user")
 }
 
+"""
+A deposit for a GitHub user.
+"""
 type UserDeposit @entity {
   id: ID!
   from: Bytes!
@@ -23,6 +33,9 @@ type UserDeposit @entity {
   user: User!
 }
 
+"""
+A verified Ethereum address of a GitHub user.
+"""
 type UserAddress @entity {
   id: ID!
   name: String!
@@ -30,12 +43,19 @@ type UserAddress @entity {
   user: User!
 }
 
+"""
+A GitHub issue with deposits. Created on first deposit.
+The id equals the one on GitHub.
+"""
 type Issue @entity {
   id: ID!
   status: Int!
   deposits: [IssueDeposit!]! @derivedFrom(field: "issue")
 }
 
+"""
+A deposit for a GitHub issue.
+"""
 type IssueDeposit @entity {
   id: ID!
   from: Bytes!
@@ -43,6 +63,9 @@ type IssueDeposit @entity {
   issue: Issue!
 }
 
+"""
+An Octobay oracle with available jobs.
+"""
 type Oracle @entity {
   id: ID!
   name: String!
@@ -50,6 +73,9 @@ type Oracle @entity {
   jobs: [OracleJob!]! @derivedFrom(field: "oracle")
 }
 
+"""
+An oracle job configuration.
+"""
 type OracleJob @entity {
   id: ID!
   name: String!
@@ -57,9 +83,13 @@ type OracleJob @entity {
   oracle: Oracle!
 }
 
+"""
+A governance token with additional department information.
+"""
 type GovernanceDepartment @entity {
   id: ID!
   creator: Bytes!
+  """ The node ID of a GitHub repository or organization. """
   projectId: String!
   tokenAddress: Bytes!
   name: String!
@@ -71,6 +101,9 @@ type GovernanceDepartment @entity {
   proposals: [GovernanceProposal!] @derivedFrom(field: "department")
 }
 
+"""
+A single governance token holder.
+"""
 type GovernanceTokenHolder @entity {
   id: ID!
   ethAddress: Bytes!
@@ -78,6 +111,9 @@ type GovernanceTokenHolder @entity {
   department: GovernanceDepartment!
 }
 
+"""
+A single NFT, holding permissions for a department.
+"""
 type GovernancePermissionNFT @entity {
   id: ID!
   ownerAddress: Bytes!
@@ -85,6 +121,10 @@ type GovernancePermissionNFT @entity {
   department: GovernanceDepartment!
 }
 
+"""
+A proposal based on a GitHub discussion.
+The id equals the one of the discussion.
+"""
 type GovernanceProposal @entity {
   id: ID!
   count: BigInt!
@@ -96,6 +136,10 @@ type GovernanceProposal @entity {
   department: GovernanceDepartment!
 }
 
+"""
+A vote from a governance token holder.
+Percentage of the vote is the percentage of tokens the voter holds.
+"""
 type GovernanceProposalVote @entity {
   id: ID!
   holder: GovernanceTokenHolder!
